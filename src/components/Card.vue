@@ -102,15 +102,13 @@ table {
   table-layout: fixed;
   border-spacing: 10px;
 }
-.container {
-  display: contents;
-}
+
 td {
   padding: 0.5rem 0 !important;
 }
 
 .card {
-  max-height: 50vh;
+  height: 100%;
 }
 header {
   height: 7vh;
@@ -118,6 +116,6 @@ header {
 
 .card-content {
   overflow-y: auto;
-  max-height: 43vh;
+  max-height: calc(100% - 7vh);
 }
 </style>

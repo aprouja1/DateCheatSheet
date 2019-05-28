@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     initialCheck() {
-      return this.value === this.onValue || true ? true : false;
+      return this.value === this.onValue  ? true : false;
     }
   }
 };

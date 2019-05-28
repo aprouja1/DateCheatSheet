@@ -29,4 +29,10 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+
+@media (max-width: 425px) {
+  .field {
+    margin-top: 1rem;
+  }
+}
 </style>

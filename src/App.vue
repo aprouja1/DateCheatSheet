@@ -87,10 +87,11 @@ export default {
   },
   methods: {
     scrollAll(h) {
-      this.shouldScrollAll &&
+      if (this.shouldScrollAll && this.groupMode === "dates") {
         document
           .querySelectorAll(".card-content")
           .forEach(c => (c.scrollTop = h));
+      }
     }
   }
 };
@@ -99,10 +100,11 @@ export default {
 <style>
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(31vw, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-gap: 1rem;
   margin: 0 1rem;
   transition: all 1s;
+  /* add variable row height */
 }
 .toggle-container {
   display: flex;
@@ -113,6 +115,7 @@ export default {
 .settings-row {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 .group-container {
   display: flex;
