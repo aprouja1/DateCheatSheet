@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div class="settings-row">
+    <span class="icon settings-icon" @click="settingsIsOpen=!settingsIsOpen">
+      <i class="icon-settings"/>
+    </span>
+    <div class="settings-row" :class="{'open':settingsIsOpen}">
       <div class="toggle-container">
         <label for class="label">Group By</label>
         <toggle
@@ -17,9 +20,10 @@
       </div>
       <grouped-buttons :options="filterOptions" label="Filter to" v-model="filterTo"/>
       <search-bar v-model="methodSearch"/>
+      <height-input v-model="rowHeight"/>
     </div>
     <date-input-area v-model="dates"/>
-    <div class="card-grid">
+    <div class="card-grid" :style="{'grid-auto-rows':`${rowHeight==0?'auto':rowHeight+'vh'}`}">
       <keep-alive v-for="(property,i) in groupBy" :key="property+i">
         <card
           :title="property"
@@ -39,6 +43,7 @@ import Toggle from "./components/Toggle.vue";
 import SearchBar from "./components/SearchBar.vue";
 import DateInputArea from "./components/DateInputArea.vue";
 import GroupedButtons from "./components/GroupedButtons.vue";
+import HeightInput from "./components/HeightInput.vue";
 export default {
   name: "App",
   components: {
@@ -46,10 +51,13 @@ export default {
     Toggle,
     SearchBar,
     DateInputArea,
-    GroupedButtons
+    GroupedButtons,
+    HeightInput
   },
   data() {
     return {
+      settingsIsOpen: false,
+      rowHeight: 0,
       timeRegex: new RegExp("time|second|hour|minute", "i"),
       dates: [],
       groupMode: "method",
@@ -104,7 +112,6 @@ export default {
   grid-gap: 1rem;
   margin: 0 1rem;
   transition: all 1s;
-  /* add variable row height */
 }
 .toggle-container {
   display: flex;
@@ -121,5 +128,28 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.settings-icon {
+  display: none;
+}
+
+@media (max-width: 425px) {
+  .settings-row {
+    max-height: 0;
+    opacity: 0;
+    transition: all 1s;
+  }
+  .settings-row.open {
+    max-height: 300px;
+    opacity: 1;
+  }
+  .settings-icon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding-right: 1rem;
+    padding-top: 1rem;
+  }
 }
 </style>
